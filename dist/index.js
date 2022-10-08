@@ -6792,17 +6792,15 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(2186);
 const findForgeVersion = __nccwpck_require__(3195);
 
-// most @actions toolkit packages have async methods
 async function run() {
   try {
     const minecraftVersion = core.getInput('minecraftVersion');
     const channel = core.getInput('channel');
     core.info(`Finding Forge version for ${minecraftVersion}-${channel} ...`);
 
-    await findForgeVersion(minecraftVersion, channel);
-    core.info((new Date()).toTimeString());
+    const version = await findForgeVersion(minecraftVersion, channel);
 
-    core.setOutput('time', new Date().toTimeString());
+    core.setOutput('version', version);
   } catch (error) {
     core.setFailed(error.message);
   }
